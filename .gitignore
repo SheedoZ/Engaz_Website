@@ -1,0 +1,30 @@
+.DS_Store
+Thumbs.db
+
+# Local tooling and editor state
+.claude/
+.codex-remote-attachments/
+.idea/
+.vscode/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Build, cache, logs, and temporary output
+node_modules/
+dist/
+build/
+.next/
+.wrangler/
+*.log
+tmp/
+temp/
+
+# Demos are maintained outside this production website repository
+demos/
