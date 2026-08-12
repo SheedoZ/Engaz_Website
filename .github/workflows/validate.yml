@@ -51,8 +51,9 @@ jobs:
           fi
 
           bad_refs="$(
-            grep -Eo "(href|src)=['\"][^'\"#:]+'?" index.html |
+            grep -Eo "(href|src)=['\"][^'\"]+['\"]" index.html |
             sed -E "s/^(href|src)=['\"]//; s/['\"]$//" |
+            grep -Ev '^(#|https?://|tel:|mailto:|data:|javascript:)' |
             while read -r path; do
               clean="${path%%\?*}"
               clean="${clean%%#*}"
