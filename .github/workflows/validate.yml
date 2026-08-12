@@ -1,0 +1,79 @@
+name: Validate website
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check required website files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s social-preview.png
+          test -f .nojekyll
+
+      - name: Block demos, hosting metadata, and sensitive files
+        shell: bash
+        run: |
+          set -euo pipefail
+          bad_paths="$(
+            git ls-files |
+            grep -Eai '(^|/)(demos?|\.openai|\.env($|\.)|node_modules|logs?|backups?|exports?|uploads?|wallet)(/|$)|\.(key|pem|p12|pfx|dmp|sqlite|db)$' || true
+          )"
+
+          if [ -n "$bad_paths" ]; then
+            echo "Blocked files detected:"
+            echo "$bad_paths"
+            exit 1
+          fi
+
+      - name: Check website references and secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -Eqi "href=['\"]demos?/|src=['\"]demos?/|appgprj_|-----BEGIN ([A-Z0-9 ]+ )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}" index.html; then
+            echo "A demo link, hosting identifier, or possible secret was detected."
+            exit 1
+          fi
+
+          bad_refs="$(
+            grep -Eo "(href|src)=['\"][^'\"]+['\"]" index.html |
+            sed -E "s/^(href|src)=['\"]//; s/['\"]$//" |
+            grep -Ev '^(#|https?://|tel:|mailto:|data:|javascript:)' |
+            while read -r path; do
+              clean="${path%%\?*}"
+              clean="${clean%%#*}"
+              [ -z "$clean" ] && continue
+              [ -e "$clean" ] || echo "$path"
+            done || true
+          )"
+
+          if [ -n "$bad_refs" ]; then
+            echo "Missing local files:"
+            echo "$bad_refs"
+            exit 1
+          fi
+
+      - name: Require LF repository text
+        shell: bash
+        run: |
+          set -euo pipefail
+          bad_eol="$(git ls-files --eol | awk '$1 != "i/lf" && $1 != "i/-text" {print}')"
+          test -z "$bad_eol" || {
+            echo "$bad_eol"
+            exit 1
+          }
