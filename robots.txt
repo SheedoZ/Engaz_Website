@@ -1,0 +1,5 @@
+# https://engaz.premiumpower-eg.com/
+User-agent: *
+Allow: /
+
+Sitemap: https://engaz.premiumpower-eg.com/sitemap.xml

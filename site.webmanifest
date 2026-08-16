@@ -1,0 +1,20 @@
+{
+  "name": "إنجاز — حلول أعمال",
+  "short_name": "إنجاز",
+  "description": "أنظمة أعمال وأتمتة للشركات: حجز، متابعة عملاء، فواتير، تقارير لحظية.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbf5e9",
+  "theme_color": "#11243e",
+  "icons": [
+    {
+      "src": "social-preview.png",
+      "sizes": "1731x909",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
