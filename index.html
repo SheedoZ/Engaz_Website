@@ -510,10 +510,13 @@ html[lang="ar"] .eyebrow { letter-spacing: 0; font-size: 13px; text-transform: n
   font-size: 14px;
   font-weight: 700;
 }
-.site-header nav a { padding: 4px 0; border-bottom: 2px solid transparent; }
+/* Without nowrap, multi-word items ("لماذا إنجاز", "الأسئلة الشائعة") break
+   over two lines on laptop widths and the header goes ragged. */
+.site-header nav a { padding: 4px 0; border-bottom: 2px solid transparent; white-space: nowrap; }
 .site-header nav a:hover { color: var(--gold-ink); border-color: var(--gold); }
 
 .header-actions { display: flex; align-items: center; gap: 12px; }
+.header-cta { white-space: nowrap; }
 
 .lang-button, .nav-toggle {
   display: inline-flex;
@@ -1592,7 +1595,17 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
   .contact-grid { grid-template-columns: 1fr; gap: 38px; }
 }
 
-@media (max-width: 860px) {
+/* Seven items plus logo, language switch and CTA is a tight row on laptops.
+   Close the gaps a little rather than let anything wrap. */
+@media (max-width: 1200px) {
+  .site-header nav { gap: 17px; font-size: 13.5px; }
+  .site-header__inner { gap: 16px; }
+}
+
+/* Below 1000px the row cannot hold the logo, seven links, the language switch
+   and the CTA at once, so the menu takes over. This is deliberately a higher
+   breakpoint than the rest of the layout uses. */
+@media (max-width: 1000px) {
   .site-header nav {
     position: absolute;
     inset-inline: 14px;
@@ -1615,6 +1628,9 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
   /* .header-cta is hidden from here down, so the menu carries the CTA instead —
      otherwise the primary action disappears entirely on phones. */
   .site-header nav .nav-cta { display: inline-flex; justify-content: center; margin-top: 8px; }
+}
+
+@media (max-width: 860px) {
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
   .stats__grid > div:nth-child(2) { border-inline-end: 0; }
   .stats__grid > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -1696,6 +1712,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       <a href="#products" data-ar="المنتجات" data-en="Products">المنتجات</a>
       <a href="#tools" data-ar="أدوات ذكية" data-en="Smart tools">أدوات ذكية</a>
       <a href="#packages" data-ar="الباقات" data-en="Packages">الباقات</a>
+      <a href="#clients" data-ar="عملاؤنا" data-en="Clients">عملاؤنا</a>
       <a href="#faq" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a>
       <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
       <a class="nav-cta button button--primary js-wa" href="https://wa.me/201032521321"
@@ -2343,27 +2360,22 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
 
 <!-- ====================================================== CLIENTS ==== -->
 <!--
-  HOW TO TURN THIS ON
-  1. Drop each client logo into brand/clients/ (SVG preferred, or transparent PNG).
-  2. Replace a placeholder <li> with the filled form shown in the comment below.
-  3. Delete the `hidden` attribute from the <section> tag.
-  4. Add a nav link if you want it in the header:
-        <a href="#clients" data-ar="عملاؤنا" data-en="Clients">عملاؤنا</a>
-
-  A filled slot looks like this (point the img at your file in brand/clients/):
-    <li class="client">
-      <img alt="Acme" loading="lazy" width="160" height="52">
-    </li>
-
-  It ships hidden on purpose: a wall of empty boxes on the live site would cost
-  more credibility than having no clients section at all.
+  ADDING A CLIENT
+  1. Drop the logo into brand/clients/ (SVG preferred, or transparent PNG).
+  2. Replace one placeholder <li> with the filled form:
+       <li class="client">
+         <img alt="Acme" loading="lazy" width="160" height="52">
+       </li>
+     ...with the img pointing at your file in brand/clients/.
+  3. Delete any placeholder slots you no longer need — the grid reflows on its
+     own, so there is no fixed number to keep.
 -->
-<section class="clients-section" id="clients" hidden>
+<section class="clients-section" id="clients">
   <div class="section-title reveal">
     <p class="eyebrow" data-ar="عملاؤنا" data-en="Our clients">عملاؤنا</p>
     <h2>
-      <span data-ar="شركات تُدير عملها" data-en="Companies running their">شركات تُدير عملها</span>
-      <em class="swash" data-ar="بأنظمة إنجاز" data-en="business on Engaz">بأنظمة إنجاز</em>
+      <span data-ar="شركات تُدير عملها بنظام" data-en="Companies running on">شركات تُدير عملها بنظام</span>
+      <em class="swash" data-ar="إنجاز" data-en="Engaz">إنجاز</em>
     </h2>
     <p data-ar="كل نظام هنا يعمل في شركة حقيقية، لا في عرض تقديمي."
        data-en="Every system here runs in a real company, not in a slide deck.">كل نظام هنا يعمل في شركة حقيقية، لا في عرض تقديمي.</p>
@@ -2717,6 +2729,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       <a href="#tools" data-ar="أدوات ذكية" data-en="Smart tools">أدوات ذكية</a>
       <a href="#packages" data-ar="الباقات" data-en="Packages">الباقات</a>
       <a href="#process" data-ar="كيف نعمل" data-en="How we work">كيف نعمل</a>
+      <a href="#clients" data-ar="عملاؤنا" data-en="Clients">عملاؤنا</a>
       <a href="#faq" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a>
       <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
     </nav>
