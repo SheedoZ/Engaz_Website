@@ -758,7 +758,56 @@ html[dir="ltr"] .marquee > div { animation-name: slideLtr; }
   font-size: 12px;
   font-weight: 800;
 }
-.clients-note { margin-top: 22px; color: var(--muted); font-size: 13px; }
+.clients-note { margin: 0; color: var(--muted); font-size: 13px; }
+.clients-grid[hidden] { display: none; }
+
+/* Stands in for the logo grid while there are no client logos to show:
+   four real routes into work.html instead of six empty boxes. */
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.proof-strip__link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  padding: 22px 22px 24px;
+  background: var(--paper);
+  box-shadow: 5px 5px 0 var(--navy);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.proof-strip__link:hover {
+  transform: translateY(-3px);
+  background: var(--cream);
+  box-shadow: 8px 8px 0 var(--navy);
+}
+.proof-strip__icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  margin-bottom: 10px;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  background: var(--lime);
+}
+.proof-strip__link:nth-child(2) .proof-strip__icon { background: var(--gold); }
+.proof-strip__link:nth-child(3) .proof-strip__icon { background: var(--blue); }
+.proof-strip__link:nth-child(4) .proof-strip__icon { background: #f9e4c1; }
+.proof-strip__icon svg { width: 21px; height: 21px; }
+.proof-strip__link strong { font: 900 17px var(--font-display); }
+.proof-strip__link small { color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+
+.proof-strip__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+  margin-top: 26px;
+}
 
 /* --------------------------------------------------------------- stats --- */
 .stats { border-bottom: 1px solid var(--line); }
@@ -1646,6 +1695,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
 }
 
 @media (max-width: 860px) {
+  .proof-strip { grid-template-columns: repeat(2, 1fr); }
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
   .stats__grid > div:nth-child(2) { border-inline-end: 0; }
   .stats__grid > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -1673,7 +1723,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
     margin-bottom: 2px;
     transform: rotate(-1.5deg);
   }
-  .method-grid, .journey-grid, .plans, .track-switch, .tool__fields { grid-template-columns: 1fr; }
+  .method-grid, .journey-grid, .plans, .track-switch, .tool__fields, .proof-strip { grid-template-columns: 1fr; }
   .method-grid article, .journey-grid article {
     border-inline-end: 0;
     border-bottom: 1px solid var(--line);
@@ -2384,40 +2434,79 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
   </div>
 </section>
 
-<!-- ====================================================== CLIENTS ==== -->
+<!-- ================================================== PROOF STRIP ==== -->
 <!--
-  ADDING A CLIENT
-  1. Drop the logo into brand/clients/ (SVG preferred, or transparent PNG).
-  2. Replace one placeholder <li> with the filled form:
-       <li class="client">
-         <img alt="Acme" loading="lazy" width="160" height="52">
-       </li>
-     ...with the img pointing at your file in brand/clients/.
-  3. Delete any placeholder slots you no longer need — the grid reflows on its
-     own, so there is no fixed number to keep.
+  This slot used to hold six empty logo boxes. A logo under a "companies
+  running on Engaz" heading is a claim of a real client relationship, so the
+  grid stays hidden until real logos with written consent exist — see
+  brand/clients/README.md. Until then the slot carries something true: a
+  route into work.html, where the systems are shown actually running.
+
+  TO SWITCH BACK TO LOGOS
+  1. Drop the logos into brand/clients/ (SVG preferred, or transparent PNG).
+  2. Remove the `hidden` attribute from .clients-grid below.
+  3. Replace each placeholder <li> with a .client one holding an <img> that
+     points at your file — brand/clients/README.md has the exact snippet.
+     (It lives there rather than here because the reference check in CI reads
+     this file and would follow an example path as if it were real.)
+  4. Delete the slots you do not need — the grid reflows on its own.
 -->
 <section class="clients-section" id="clients">
   <div class="section-title reveal">
-    <p class="eyebrow" data-ar="عملاؤنا" data-en="Our clients">عملاؤنا</p>
+    <p class="eyebrow" data-ar="أعمالنا" data-en="Our work">أعمالنا</p>
     <h2>
-      <span data-ar="شركات تُدير عملها بنظام" data-en="Companies running on">شركات تُدير عملها بنظام</span>
-      <em class="swash" data-ar="إنجاز" data-en="Engaz">إنجاز</em>
+      <span data-ar="أنظمة شغّالة، مش" data-en="Systems running, not">أنظمة شغّالة، مش</span>
+      <em class="swash" data-ar="وعود." data-en="promises.">وعود.</em>
     </h2>
-    <p data-ar="كل نظام هنا يعمل في شركة حقيقية، لا في عرض تقديمي."
-       data-en="Every system here runs in a real company, not in a slide deck.">كل نظام هنا يعمل في شركة حقيقية، لا في عرض تقديمي.</p>
+    <p data-ar="بدل ما نحكي لك، شوف بنفسك: تسجيلات شاشة من أنظمة حقيقية بنيناها وشغّلناها — الحجز، ومتابعة العملاء، والأتمتة، والتقارير."
+       data-en="Rather than tell you, see for yourself: screen recordings from real systems we built and run — booking, follow-up, automation and reporting.">بدل ما نحكي لك، شوف بنفسك: تسجيلات شاشة من أنظمة حقيقية بنيناها وشغّلناها — الحجز، ومتابعة العملاء، والأتمتة، والتقارير.</p>
   </div>
 
-  <ul class="clients-grid reveal d1">
-    <li class="client client--empty"><span data-ar="شعار عميل" data-en="Client logo">شعار عميل</span></li>
-    <li class="client client--empty"><span data-ar="شعار عميل" data-en="Client logo">شعار عميل</span></li>
-    <li class="client client--empty"><span data-ar="شعار عميل" data-en="Client logo">شعار عميل</span></li>
+  <div class="proof-strip reveal d1">
+    <a class="proof-strip__link" href="work.html#systems">
+      <span class="proof-strip__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </span>
+      <strong data-ar="الأنظمة" data-en="Systems">الأنظمة</strong>
+      <small data-ar="حجز، عملاء، فواتير، تقارير" data-en="Booking, leads, invoices, reports">حجز، عملاء، فواتير، تقارير</small>
+    </a>
+    <a class="proof-strip__link" href="work.html#teacher">
+      <span class="proof-strip__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+      </span>
+      <strong data-ar="المدرّسين والسناتر" data-en="Teachers">المدرّسين والسناتر</strong>
+      <small data-ar="طلاب، مجموعات، مصروفات" data-en="Students, groups, fees">طلاب، مجموعات، مصروفات</small>
+    </a>
+    <a class="proof-strip__link" href="work.html#automation">
+      <span class="proof-strip__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4.5 12.5H11l-1 9.5 8.5-10.5H12l1-9.5z"/></svg>
+      </span>
+      <strong data-ar="الأتمتة" data-en="Automation">الأتمتة</strong>
+      <small data-ar="ربط الأدوات ببعضها" data-en="Wiring the tools together">ربط الأدوات ببعضها</small>
+    </a>
+    <a class="proof-strip__link" href="work.html#marketing">
+      <span class="proof-strip__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-6-6 18-3-7-9-5z"/></svg>
+      </span>
+      <strong data-ar="التسويق والريلز" data-en="Marketing & reels">التسويق والريلز</strong>
+      <small data-ar="حملات ومحتوى ومونتاج" data-en="Campaigns, content, editing">حملات ومحتوى ومونتاج</small>
+    </a>
+  </div>
+
+  <div class="proof-strip__foot">
+    <a class="button button--primary button--large" href="work.html"
+       data-ar="افتح صفحة الأعمال" data-en="Open the work page">افتح صفحة الأعمال</a>
+    <!-- Uncomment together with the logo grid below, never on its own —
+         with no logos on the page this line captions nothing. -->
+    <!--<p class="clients-note" data-ar="نعرض شعار أي عميل بموافقته المكتوبة فقط."
+       data-en="We show a client's logo only with their written consent.">نعرض شعار أي عميل بموافقته المكتوبة فقط.</p>-->
+  </div>
+
+  <ul class="clients-grid reveal d1" hidden>
     <li class="client client--empty"><span data-ar="شعار عميل" data-en="Client logo">شعار عميل</span></li>
     <li class="client client--empty"><span data-ar="شعار عميل" data-en="Client logo">شعار عميل</span></li>
     <li class="client client--empty"><span data-ar="شعار عميل" data-en="Client logo">شعار عميل</span></li>
   </ul>
-
-  <p class="clients-note" data-ar="نعرض شعار أي عميل بموافقته المكتوبة فقط."
-     data-en="We show a client's logo only with their written consent.">نعرض شعار أي عميل بموافقته المكتوبة فقط.</p>
 </section>
 
 
@@ -2756,7 +2845,6 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       <a href="#packages" data-ar="الباقات" data-en="Packages">الباقات</a>
       <a href="#process" data-ar="كيف نعمل" data-en="How we work">كيف نعمل</a>
       <a href="work.html" data-ar="أعمالنا" data-en="Our work">أعمالنا</a>
-      <a href="#clients" data-ar="عملاؤنا" data-en="Clients">عملاؤنا</a>
       <a href="#faq" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a>
       <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
     </nav>
