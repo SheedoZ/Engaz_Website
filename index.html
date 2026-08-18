@@ -100,12 +100,15 @@
         "@type": "OfferCatalog",
         "name": "منتجات وخدمات إنجاز",
         "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "نظام إدارة علاقات العملاء ومتابعة المبيعات", "serviceType": "CRM" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "نظام الحجز وإدارة المواعيد", "serviceType": "Booking system" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "أتمتة العمليات والتقارير", "serviceType": "Business process automation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "نظام الشركات والمكاتب — إدارة العملاء والمبيعات والمخزون", "serviceType": "Business management system, CRM, ERP" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "نظام المدرّسين والسناتر — الطلاب والمجموعات والمصروفات", "serviceType": "Education management system" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "النظام الطبي للعيادات والمستوصفات — الحجز وملفّات المرضى", "serviceType": "Clinic management system" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "أنظمة على المقاس للمعامل والمطاعم والمتاجر", "serviceType": "Custom software development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "أتمتة العمليات والتقارير", "serviceType": "Business process automation, n8n" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "واتساب بيزنس API الرسمي", "serviceType": "WhatsApp Business API integration" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "مساعد ذكي للردّ على العملاء", "serviceType": "AI assistant" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "عروض الأسعار والفواتير والتحصيل", "serviceType": "Quoting and invoicing" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "مساعد ذكي للرد على العملاء", "serviceType": "AI assistant" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "المواقع والمنيو الرقمي", "serviceType": "Web development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "الموقع والحضور الرقمي", "serviceType": "Web development" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "الاستضافة والنسخ الاحتياطي والدعم", "serviceType": "Managed hosting and support" } }
         ]
       }
@@ -879,6 +882,25 @@ html[dir="ltr"] .marquee > div { animation-name: slideLtr; }
 }
 .product:hover { transform: translateY(-3px); box-shadow: 9px 9px 0 var(--navy); }
 .product[hidden] { display: none; }
+
+/* The bespoke card is the catch-all behind the sector systems, not a fourth
+   sector. Give it the whole row so it reads as the fallback and never leaves
+   an orphan gap when the sector count is not a multiple of the column count. */
+.product--wide { grid-column: 1 / -1; }
+@media (min-width: 760px) {
+  .product--wide {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 34px;
+    align-items: start;
+  }
+  .product--wide .product__head,
+  .product--wide .product__foot { grid-column: 1 / -1; }
+  .product--wide .product__letter { display: none; }
+  .product--wide h3 { grid-column: 1; grid-row: 2; align-self: end; }
+  .product--wide .product__desc { grid-column: 1; grid-row: 3; }
+  .product--wide .product__facts { grid-column: 2; grid-row: 2 / span 2; margin-top: 0; align-content: start; }
+}
 .product--gold  { background: #f9e4c1; }
 .product--lime  { background: #eef8c5; }
 .product--blue  { background: #d8eff8; }
@@ -1791,9 +1813,10 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <span data-ar="نوع النشاط" data-en="Business type">نوع النشاط</span>
         <select id="fBiz2">
           <option value="any" data-ar="كل الأنشطة" data-en="All business types">كل الأنشطة</option>
-          <option value="clinic" data-ar="عيادة أو مركز طبي" data-en="Clinic or medical centre">عيادة أو مركز طبي</option>
-          <option value="lab" data-ar="معمل أو مركز أشعة" data-en="Lab or radiology centre">معمل أو مركز أشعة</option>
           <option value="company" data-ar="شركة أو مكتب خدمات" data-en="Company or services office">شركة أو مكتب خدمات</option>
+          <option value="education" data-ar="مدرّس أو سنتر تعليمي" data-en="Teacher or tuition centre">مدرّس أو سنتر تعليمي</option>
+          <option value="clinic" data-ar="عيادة أو مستوصف" data-en="Clinic or polyclinic">عيادة أو مستوصف</option>
+          <option value="lab" data-ar="معمل أو مركز أشعة" data-en="Lab or radiology centre">معمل أو مركز أشعة</option>
           <option value="restaurant" data-ar="مطعم أو كافيه" data-en="Restaurant or café">مطعم أو كافيه</option>
           <option value="retail" data-ar="متجر أو مخزن" data-en="Shop or warehouse">متجر أو مخزن</option>
         </select>
@@ -1838,128 +1861,86 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
 
   <div class="product-grid" id="productGrid" role="tabpanel" aria-labelledby="tab-systems">
 
-    <article class="product product--gold reveal" data-track="systems" data-biz="clinic" data-pain="leads,time,money,reports" data-size="solo,small,mid" data-plan="system">
+    <article class="product product--gold reveal" data-track="systems" data-biz="company" data-pain="leads,time,money,reports" data-size="solo,small,mid,large" data-plan="system">
       <div class="product__head">
         <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
         <span class="product__tag" data-ar="الأكثر طلبًا" data-en="Most requested">الأكثر طلبًا</span>
       </div>
-      <div class="product__letter" aria-hidden="true" data-ar="ع" data-en="C">ع</div>
-      <h3 data-ar="نظام العيادات والمراكز الطبية" data-en="Clinics &amp; medical centres">نظام العيادات والمراكز الطبية</h3>
-      <p class="product__desc" data-ar="حجز المواعيد، وملفّ المريض، والكشوف والمتابعات، والتحصيل — مع تذكير تلقائي يقلّل الغياب."
-         data-en="Appointment booking, patient files, visits and follow-ups, and collections — with automatic reminders that cut no-shows.">حجز المواعيد، وملفّ المريض، والكشوف والمتابعات، والتحصيل — مع تذكير تلقائي يقلّل الغياب.</p>
+      <div class="product__letter" aria-hidden="true" data-ar="ش" data-en="B">ش</div>
+      <h3 data-ar="نظام الشركات والمكاتب" data-en="Companies &amp; offices">نظام الشركات والمكاتب</h3>
+      <p class="product__desc" data-ar="خطّ واضح من أوّل عميل حتى التحصيل: متابعة العملاء، وعروض الأسعار والفواتير، والأصناف والمخزون، وصلاحيات الفريق، ولوحة أرقام للإدارة."
+         data-en="A clear line from first lead to payment: customer follow-up, quotes and invoices, items and stock, team permissions, and a management dashboard.">خطّ واضح من أوّل عميل حتى التحصيل: متابعة العملاء، وعروض الأسعار والفواتير، والأصناف والمخزون، وصلاحيات الفريق، ولوحة أرقام للإدارة.</p>
+      <ul class="product__facts">
+        <li data-ar="متابعة العملاء" data-en="Customer follow-up">متابعة العملاء</li>
+        <li data-ar="عروض وفواتير" data-en="Quotes &amp; invoices">عروض وفواتير</li>
+        <li data-ar="أصناف ومخزون" data-en="Items &amp; stock">أصناف ومخزون</li>
+        <li data-ar="صلاحيات وتقارير" data-en="Roles &amp; reports">صلاحيات وتقارير</li>
+      </ul>
+      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام الشركات والمكاتب." data-wa-en="I would like details about the companies and offices system.">
+        <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
+        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
+      </button>
+    </article>
+
+    <article class="product product--lime reveal" data-track="systems" data-biz="education" data-pain="leads,time,money,reports" data-size="solo,small,mid,large" data-plan="system">
+      <div class="product__head">
+        <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
+        <span class="product__tag" data-ar="من مدرّس إلى سنتر" data-en="One teacher to a centre">من مدرّس إلى سنتر</span>
+      </div>
+      <div class="product__letter" aria-hidden="true" data-ar="ت" data-en="E">ت</div>
+      <h3 data-ar="نظام المدرّسين والسناتر" data-en="Teachers &amp; tuition centres">نظام المدرّسين والسناتر</h3>
+      <p class="product__desc" data-ar="الطلاب والمجموعات والحصص والمصروفات في نظام واحد — بدل الدفاتر وكشوف الإكسل ورسائل أولياء الأمور المتفرّقة."
+         data-en="Students, groups, sessions and fees in one system — instead of notebooks, scattered spreadsheets and one-off messages to parents.">الطلاب والمجموعات والحصص والمصروفات في نظام واحد — بدل الدفاتر وكشوف الإكسل ورسائل أولياء الأمور المتفرّقة.</p>
+      <ul class="product__facts">
+        <li data-ar="طلاب وأولياء أمور" data-en="Students &amp; parents">طلاب وأولياء أمور</li>
+        <li data-ar="مجموعات وجداول" data-en="Groups &amp; timetables">مجموعات وجداول</li>
+        <li data-ar="حضور وغياب" data-en="Attendance">حضور وغياب</li>
+        <li data-ar="مصروفات وأقساط" data-en="Fees &amp; instalments">مصروفات وأقساط</li>
+      </ul>
+      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام المدرّسين والسناتر." data-wa-en="I would like details about the teachers and tuition centres system.">
+        <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
+        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
+      </button>
+    </article>
+
+    <article class="product product--blue reveal" data-track="systems" data-biz="clinic" data-pain="leads,time,money,reports" data-size="solo,small,mid" data-plan="system">
+      <div class="product__head">
+        <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
+        <span class="product__tag" data-ar="يقلّل الغياب" data-en="Cuts no-shows">يقلّل الغياب</span>
+      </div>
+      <div class="product__letter" aria-hidden="true" data-ar="ط" data-en="M">ط</div>
+      <h3 data-ar="النظام الطبي — العيادات والمستوصفات" data-en="Clinics &amp; polyclinics">النظام الطبي — العيادات والمستوصفات</h3>
+      <p class="product__desc" data-ar="حجز المواعيد وملفّ المريض والتحصيل، مع تذكير تلقائي يقلّل الغياب — ويتوسّع لأكثر من طبيب وتخصّص داخل المستوصف."
+         data-en="Appointment booking, patient files and collections, with automatic reminders that cut no-shows — scaling to several doctors and specialties in a polyclinic.">حجز المواعيد وملفّ المريض والتحصيل، مع تذكير تلقائي يقلّل الغياب — ويتوسّع لأكثر من طبيب وتخصّص داخل المستوصف.</p>
       <ul class="product__facts">
         <li data-ar="حجز ومواعيد" data-en="Booking">حجز ومواعيد</li>
         <li data-ar="ملفّات المرضى" data-en="Patient files">ملفّات المرضى</li>
         <li data-ar="تذكير واتساب" data-en="WhatsApp reminders">تذكير واتساب</li>
-        <li data-ar="تقارير دخل" data-en="Income reports">تقارير دخل</li>
+        <li data-ar="أكثر من طبيب" data-en="Multi-doctor">أكثر من طبيب</li>
       </ul>
-      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام العيادات والمراكز الطبية." data-wa-en="I would like details about the clinics and medical centres system.">
+      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل النظام الطبي للعيادات والمستوصفات." data-wa-en="I would like details about the clinics and polyclinics system.">
         <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
       </button>
     </article>
 
-    <article class="product product--blue reveal d1" data-track="systems" data-biz="lab" data-pain="time,money,reports" data-size="small,mid,large" data-plan="system">
-      <div class="product__head">
-        <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
-        <span class="product__tag" data-ar="تشغيل مكثّف" data-en="High volume">تشغيل مكثّف</span>
-      </div>
-      <div class="product__letter" aria-hidden="true" data-ar="م" data-en="L">م</div>
-      <h3 data-ar="نظام المعامل ومراكز الأشعة" data-en="Labs &amp; radiology centres">نظام المعامل ومراكز الأشعة</h3>
-      <p class="product__desc" data-ar="من استقبال العيّنة إلى تسليم النتيجة: ترقيم تلقائي، ومتابعة حالة كل تحليل، ونتائج تصل للعميل برابط آمن."
-         data-en="From sample intake to result delivery: automatic numbering, per-test status tracking, and results delivered to the client by secure link.">من استقبال العيّنة إلى تسليم النتيجة: ترقيم تلقائي، ومتابعة حالة كل تحليل، ونتائج تصل للعميل برابط آمن.</p>
-      <ul class="product__facts">
-        <li data-ar="استقبال العيّنات" data-en="Sample intake">استقبال العيّنات</li>
-        <li data-ar="تسليم النتائج" data-en="Result delivery">تسليم النتائج</li>
-        <li data-ar="عقود الشركات" data-en="Corporate contracts">عقود الشركات</li>
-        <li data-ar="تحصيل ومتأخّرات" data-en="Collections">تحصيل ومتأخّرات</li>
-      </ul>
-      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام المعامل ومراكز الأشعة." data-wa-en="I would like details about the labs and radiology system.">
-        <span data-ar="ضمن باقة «النظام» · 3 إلى 4 أسابيع" data-en="In “The System” package · 3–4 weeks">ضمن باقة «النظام» · 3 إلى 4 أسابيع</span>
-        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
-      </button>
-    </article>
-
-    <article class="product product--lime reveal d2" data-track="systems" data-biz="company" data-pain="leads,money,reports" data-size="small,mid,large" data-plan="system">
-      <div class="product__head">
-        <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
-        <span class="product__tag" data-ar="مبيعات ومشروعات" data-en="Sales &amp; projects">مبيعات ومشروعات</span>
-      </div>
-      <div class="product__letter" aria-hidden="true" data-ar="ش" data-en="B">ش</div>
-      <h3 data-ar="نظام الشركات ومكاتب الخدمات" data-en="Companies &amp; service offices">نظام الشركات ومكاتب الخدمات</h3>
-      <p class="product__desc" data-ar="خطّ مبيعات واضح من أوّل طلب حتى التحصيل: عروض أسعار بهويّتك، ومتابعة مراحل المشروع، ولوحة أرقام للإدارة."
-         data-en="A clear pipeline from first enquiry to payment: branded quotes, project stage tracking, and a management dashboard.">خطّ مبيعات واضح من أوّل طلب حتى التحصيل: عروض أسعار بهويّتك، ومتابعة مراحل المشروع، ولوحة أرقام للإدارة.</p>
-      <ul class="product__facts">
-        <li data-ar="خطّ مبيعات" data-en="Sales pipeline">خطّ مبيعات</li>
-        <li data-ar="عروض أسعار PDF" data-en="PDF quotes">عروض أسعار PDF</li>
-        <li data-ar="مراحل المشروع" data-en="Project stages">مراحل المشروع</li>
-        <li data-ar="صلاحيات الفريق" data-en="Team roles">صلاحيات الفريق</li>
-      </ul>
-      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام الشركات ومكاتب الخدمات." data-wa-en="I would like details about the companies and service offices system.">
-        <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
-        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
-      </button>
-    </article>
-
-    <article class="product product--gold reveal" data-track="systems" data-biz="restaurant" data-pain="presence,money,time" data-size="solo,small,mid" data-plan="system">
-      <div class="product__head">
-        <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
-        <span class="product__tag" data-ar="طلبات ومنيو" data-en="Orders &amp; menu">طلبات ومنيو</span>
-      </div>
-      <div class="product__letter" aria-hidden="true" data-ar="ط" data-en="R">ط</div>
-      <h3 data-ar="نظام المطاعم والكافيهات" data-en="Restaurants &amp; cafés">نظام المطاعم والكافيهات</h3>
-      <p class="product__desc" data-ar="منيو QR يُحدَّث في ثوانٍ، وطلبات تصل مباشرة إلى المطبخ، ومتابعة للتكلفة والمخزون وأكثر الأصناف مبيعًا."
-         data-en="A QR menu you update in seconds, orders that land straight in the kitchen, and tracking for cost, stock and best sellers.">منيو QR يُحدَّث في ثوانٍ، وطلبات تصل مباشرة إلى المطبخ، ومتابعة للتكلفة والمخزون وأكثر الأصناف مبيعًا.</p>
-      <ul class="product__facts">
-        <li data-ar="منيو QR" data-en="QR menu">منيو QR</li>
-        <li data-ar="طلبات ومناوبات" data-en="Orders &amp; shifts">طلبات ومناوبات</li>
-        <li data-ar="مخزون وتكلفة" data-en="Stock &amp; cost">مخزون وتكلفة</li>
-        <li data-ar="تقرير يومي" data-en="Daily report">تقرير يومي</li>
-      </ul>
-      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام المطاعم والكافيهات." data-wa-en="I would like details about the restaurants and cafés system.">
-        <span data-ar="ضمن باقة «النظام» · 2 إلى 3 أسابيع" data-en="In “The System” package · 2–3 weeks">ضمن باقة «النظام» · 2 إلى 3 أسابيع</span>
-        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
-      </button>
-    </article>
-
-    <article class="product product--blue reveal d1" data-track="systems" data-biz="retail" data-pain="money,reports,time" data-size="solo,small,mid" data-plan="system">
-      <div class="product__head">
-        <span class="product__level" data-ar="نظام كامل" data-en="Full system">نظام كامل</span>
-        <span class="product__tag" data-ar="مخزون وبيع" data-en="Stock &amp; sales">مخزون وبيع</span>
-      </div>
-      <div class="product__letter" aria-hidden="true" data-ar="خ" data-en="S">خ</div>
-      <h3 data-ar="نظام المتاجر والمخازن" data-en="Shops &amp; warehouses">نظام المتاجر والمخازن</h3>
-      <p class="product__desc" data-ar="رصيد لحظي لكل صنف، وتنبيه قبل نفاد المخزون، وفواتير بيع وشراء مرتبطة بتقرير أرباح واضح."
-         data-en="Live stock levels per item, alerts before you run out, and sales and purchase invoices tied to a clear profit report.">رصيد لحظي لكل صنف، وتنبيه قبل نفاد المخزون، وفواتير بيع وشراء مرتبطة بتقرير أرباح واضح.</p>
-      <ul class="product__facts">
-        <li data-ar="رصيد لحظي" data-en="Live stock">رصيد لحظي</li>
-        <li data-ar="تنبيه النفاد" data-en="Low-stock alerts">تنبيه النفاد</li>
-        <li data-ar="فواتير وأرباح" data-en="Invoices &amp; profit">فواتير وأرباح</li>
-        <li data-ar="أكواد ومسح" data-en="Barcodes">أكواد ومسح</li>
-      </ul>
-      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام المتاجر والمخازن." data-wa-en="I would like details about the shops and warehouses system.">
-        <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
-        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
-      </button>
-    </article>
-
-    <article class="product product--lime reveal d2" data-track="systems" data-biz="any" data-pain="leads,time,money,reports,presence" data-size="mid,large" data-plan="custom">
+    <article class="product product--gold product--wide reveal" data-track="systems" data-biz="any" data-pain="leads,time,money,reports,presence" data-size="solo,small,mid,large" data-plan="custom">
       <div class="product__head">
         <span class="product__level" data-ar="على المقاس" data-en="Bespoke">على المقاس</span>
         <span class="product__tag" data-ar="حالات خاصة" data-en="Special cases">حالات خاصة</span>
       </div>
       <div class="product__letter" aria-hidden="true" data-ar="خاص" data-en="X">خاص</div>
       <h3 data-ar="نظام مبني على قياس نشاطك" data-en="A system built to your measure">نظام مبني على قياس نشاطك</h3>
-      <p class="product__desc" data-ar="حين لا يناسبك أيّ نظام جاهز: نُحلّل دورة عملك ونبني ما تحتاجه بالضبط، مع تكاملات خاصة وتطبيق موبايل عند الحاجة."
-         data-en="For when no off-the-shelf system fits: we map your workflow and build exactly what it needs, with custom integrations and a mobile app when required.">حين لا يناسبك أيّ نظام جاهز: نُحلّل دورة عملك ونبني ما تحتاجه بالضبط، مع تكاملات خاصة وتطبيق موبايل عند الحاجة.</p>
+      <p class="product__desc" data-ar="معمل، مطعم، متجر، أو نشاط لا يشبه غيره: نُحلّل دورة عملك ونبني ما تحتاجه بالضبط، مع تكاملات خاصة وتطبيق موبايل عند الحاجة."
+         data-en="A lab, a restaurant, a shop, or a business unlike any other: we map your workflow and build exactly what it needs, with custom integrations and a mobile app when required.">معمل، مطعم، متجر، أو نشاط لا يشبه غيره: نُحلّل دورة عملك ونبني ما تحتاجه بالضبط، مع تكاملات خاصة وتطبيق موبايل عند الحاجة.</p>
       <ul class="product__facts">
-        <li data-ar="الفاتورة الإلكترونية" data-en="E-invoicing (ETA)">الفاتورة الإلكترونية</li>
+        <li data-ar="معامل ومطاعم ومتاجر" data-en="Labs, restaurants, shops">معامل ومطاعم ومتاجر</li>
         <li data-ar="تكاملات خاصة" data-en="Custom integrations">تكاملات خاصة</li>
+        <li data-ar="الفاتورة الإلكترونية" data-en="E-invoicing (ETA)">الفاتورة الإلكترونية</li>
         <li data-ar="تطبيق موبايل" data-en="Mobile app">تطبيق موبايل</li>
-        <li data-ar="لوحات متقدّمة" data-en="Advanced dashboards">لوحات متقدّمة</li>
       </ul>
-      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في مناقشة نظام مبني على المقاس." data-wa-en="I would like to discuss a bespoke system.">
-        <span data-ar="ضمن باقة «على المقاس» · بحسب المشروع" data-en="In the “Custom” package · per project">ضمن باقة «على المقاس» · بحسب المشروع</span>
+      <button class="product__foot js-product" type="button" data-wa-ar="لدي نشاط لا يغطّيه منتج جاهز، وأرغب في مناقشة نطاق على المقاس." data-wa-en="My business isn't covered by a ready product — I'd like to discuss a bespoke scope.">
+        <span data-ar="ضمن باقة «على المقاس» · بحسب المشروع" data-en="In the “Bespoke” package · per project">ضمن باقة «على المقاس» · بحسب المشروع</span>
         <span data-ar="ابدأ نقاشًا ←" data-en="Start a conversation →">ابدأ نقاشًا ←</span>
       </button>
     </article>
@@ -2000,6 +1981,26 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       </ul>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل خدمة أتمتة العمليات والتقارير." data-wa-en="I would like details about the process and reporting automation service.">
         <span data-ar="ضمن باقة «الأتمتة» · نحو أسبوع" data-en="In the “Automation” package · about a week">ضمن باقة «الأتمتة» · نحو أسبوع</span>
+        <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
+      </button>
+    </article>
+
+    <article class="product product--lime reveal" data-track="services" data-biz="any" data-pain="leads,time,presence" data-size="solo,small,mid,large" data-plan="automation">
+      <div class="product__head">
+        <span class="product__level" data-ar="خدمة" data-en="Service">خدمة</span>
+        <span class="product__tag" data-ar="رسائل رسمية" data-en="Official messaging">رسائل رسمية</span>
+      </div>
+      <div class="product__letter" aria-hidden="true">API</div>
+      <h3 data-ar="واتساب بيزنس API الرسمي" data-en="Official WhatsApp Business API">واتساب بيزنس API الرسمي</h3>
+      <p class="product__desc" data-ar="حساب واتساب موثّق باسم شركتك، بقوالب معتمدة ورسائل تصل بالآلاف دون حظر — وهو الأساس الذي تعمل فوقه التذكيرات والردود التلقائية."
+         data-en="A verified WhatsApp account in your company's name, with approved templates and messaging at scale without bans — the foundation the reminders and auto-replies run on.">حساب واتساب موثّق باسم شركتك، بقوالب معتمدة ورسائل تصل بالآلاف دون حظر — وهو الأساس الذي تعمل فوقه التذكيرات والردود التلقائية.</p>
+      <ul class="product__facts">
+        <li data-ar="توثيق الحساب" data-en="Verified account">توثيق الحساب</li>
+        <li data-ar="قوالب معتمدة" data-en="Approved templates">قوالب معتمدة</li>
+        <li data-ar="ربط بالنظام" data-en="Wired into your system">ربط بالنظام</li>
+      </ul>
+      <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل واتساب بيزنس API الرسمي." data-wa-en="I would like details about the official WhatsApp Business API.">
+        <span data-ar="ضمن باقة «الأتمتة» · 3 إلى 7 أيام" data-en="In the “Automation” package · 3–7 days">ضمن باقة «الأتمتة» · 3 إلى 7 أيام</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
       </button>
     </article>
@@ -2339,7 +2340,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       </div>
       <p class="plan__sub" data-ar="+ اشتراك من 2,500 ج.م شهريًّا" data-en="+ from EGP 2,500 per month">+ اشتراك من 2,500 ج.م شهريًّا</p>
       <ul>
-        <li data-ar="نظام كامل للعيادة أو الشركة أو المطعم" data-en="A complete clinic, company or restaurant system">نظام كامل للعيادة أو الشركة أو المطعم</li>
+        <li data-ar="نظام كامل للشركة أو السنتر أو العيادة" data-en="A complete company, tuition centre or clinic system">نظام كامل للشركة أو السنتر أو العيادة</li>
         <li data-ar="حجز وملفّات وفواتير ومخزون وصلاحيات" data-en="Bookings, files, invoices, stock and roles">حجز وملفّات وفواتير ومخزون وصلاحيات</li>
         <li data-ar="لوحة مبيعات وتقارير دخل لحظية" data-en="Sales dashboard and live income reports">لوحة مبيعات وتقارير دخل لحظية</li>
         <li data-ar="استضافة عندنا مع نسخ احتياطي ودعم" data-en="Hosted by us with backups and support">استضافة عندنا مع نسخ احتياطي ودعم</li>
@@ -2860,8 +2861,19 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
     return true;
   }
 
+  /* A sector counts as "covered" only if some card names it outright. Cards
+     marked data-biz="any" show for every sector, so they cannot stand in for
+     a ready product — without this, picking a sector we do not build for yet
+     would still be recommended a packaged system. */
+  function hasReadyProduct(biz) {
+    return products.some(function (el) {
+      return el.getAttribute("data-biz").split(",").indexOf(biz) !== -1;
+    });
+  }
+
   function recommend(biz, pain, size, found) {
     if (!found) return "custom";
+    if (biz !== "any" && !hasReadyProduct(biz)) return "custom";
     if (pain === "presence") return "door";
     if (pain === "time" || pain === "reports") {
       return (size === "mid" || size === "large") ? "system" : "automation";
