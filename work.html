@@ -832,6 +832,17 @@ html[dir="rtl"] .work-play__icon svg { margin-inline-start: 0; margin-inline-end
   var PLAY_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
   var FILM_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 4v16M17 4v16M2 10h5M2 14h5M17 10h5M17 14h5"/></svg>';
 
+  // A pasted link works as well as a bare id: watch?v=, youtu.be/, /embed/,
+  // /shorts/, with or without trailing params.
+  var THUMBS = ["maxresdefault", "hq720", "mqdefault"];
+
+  function ytId(raw) {
+    var v = String(raw).trim();
+    if (/^[\w-]{11}$/.test(v)) return v;
+    var m = v.match(/(?:[?&]v=|\/embed\/|\/shorts\/|\/live\/|youtu\.be\/)([\w-]{11})/);
+    return m ? m[1] : v;
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -852,10 +863,12 @@ html[dir="rtl"] .work-play__icon svg { margin-inline-start: 0; margin-inline-end
 
     if (item.youtube) {
       // Click-to-load: no YouTube request until the visitor asks for it.
-      var still = item.poster || "https://i.ytimg.com/vi/" + encodeURIComponent(item.youtube) + "/hqdefault.jpg";
+      var id = ytId(item.youtube);
+      var still = item.poster || "https://i.ytimg.com/vi/" + id + "/" + THUMBS[0] + ".jpg";
+      var fallback = item.poster ? "" : ' data-yt-thumb="' + esc(id) + '" data-step="0"';
       return '<div class="work-media' + vertical + '">' +
-             '<button class="work-play" type="button" data-yt="' + esc(item.youtube) + '" aria-label="' + esc(dict.play) + '">' +
-             '<img src="' + esc(still) + '" alt="" loading="lazy" decoding="async">' +
+             '<button class="work-play" type="button" data-yt="' + esc(id) + '" aria-label="' + esc(dict.play) + '">' +
+             '<img src="' + esc(still) + '" alt="" loading="lazy" decoding="async"' + fallback + '>' +
              '<span class="work-play__icon">' + PLAY_SVG + '</span>' +
              '</button></div>';
     }
@@ -894,6 +907,16 @@ html[dir="rtl"] .work-play__icon svg { margin-inline-start: 0; margin-inline-end
 
     grid.innerHTML = list.map(cardHtml).join("");
     empty.hidden = list.length > 0;
+
+    // step down through the thumbnail sizes YouTube may not have generated
+    grid.querySelectorAll("img[data-yt-thumb]").forEach(function (img) {
+      img.addEventListener("error", function () {
+        var step = Number(img.getAttribute("data-step")) + 1;
+        if (step >= THUMBS.length) return;
+        img.setAttribute("data-step", String(step));
+        img.src = "https://i.ytimg.com/vi/" + img.getAttribute("data-yt-thumb") + "/" + THUMBS[step] + ".jpg";
+      });
+    });
 
     // click-to-load embeds
     grid.querySelectorAll(".work-play").forEach(function (btn) {

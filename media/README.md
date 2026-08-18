@@ -10,13 +10,38 @@ YouTube) and add a single entry to the `WORK` array near the bottom of
   tag: "gold",                    // "" | gold | blue — the colour of the little chip
   vertical: true,                 // reels only: switches the box to 9:16
   file: "media/teacher-demo.mp4", // EITHER a file here…
-  youtube: "dQw4w9WgXcQ",         // …OR a YouTube id. Never both.
+  youtube: "dQw4w9WgXcQ",         // …OR a YouTube link. Never both.
   poster: "media/teacher.jpg",    // optional still shown before play
   link: "https://…",              // optional "open the live demo" button
   ar: { title: "…", desc: "…" },
   en: { title: "…", desc: "…" }
 }
 ```
+
+## Pasting a YouTube link
+
+`youtube:` takes the link exactly as YouTube gives it to you — no need to dig
+the id out yourself. All of these resolve to the same video:
+
+```
+dQw4w9WgXcQ
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://youtube.com/watch?v=dQw4w9WgXcQ&t=42s
+https://youtu.be/dQw4w9WgXcQ?si=xYz123
+https://www.youtube.com/shorts/dQw4w9WgXcQ
+https://m.youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+Add `vertical: true` for a Short, so it gets a 9:16 box instead of 16:9.
+
+**Unlisted is enough.** An unlisted video embeds and plays normally, while
+staying out of search and off the channel page. Private does not work — a
+private video refuses to embed.
+
+The still comes from YouTube automatically: `maxresdefault` first, stepping
+down to `hq720` then `mqdefault`, because YouTube does not generate the larger
+sizes for every upload. Set `poster:` to a file in this folder to choose the
+still yourself instead.
 
 ## Which one: a file here, or YouTube?
 
