@@ -52,3 +52,24 @@ Every clip is a real screen recording of a real system. Blur or replace any
 real customer name, phone number, or patient detail before recording — a
 demo reel is a public page, and the data on those screens belongs to the
 people it describes.
+
+## What is in here now
+
+`eazy-english.mp4` — a 27s silent tour of the Eazy English portal
+(eazyenglish.online), 1280x720, H.264, 1.1 MB, with `eazy-english.jpg` as its
+poster frame. It is a genuine recording of the running product, captured by
+driving the app in a headless browser and easing the scroll through its own
+sections, then encoding with:
+
+```sh
+ffmpeg -i capture.webm -c:v libx264 -profile:v high -pix_fmt yuv420p \
+       -crf 30 -preset slow -movflags +faststart -an media/eazy-english.mp4
+ffmpeg -ss 2 -i capture.webm -frames:v 1 -q:v 4 media/eazy-english.jpg
+```
+
+`-movflags +faststart` puts the index at the front of the file so playback can
+begin before the whole clip has downloaded. `-an` drops the audio track — these
+are silent demos, and an empty track is wasted bytes.
+
+Note that a clip has no sound, so nothing about it should depend on narration.
+If you want a voiceover, record it separately and mix it in.

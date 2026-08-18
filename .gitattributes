@@ -11,4 +11,9 @@
 *.gif binary
 *.ico binary
 *.webp binary
+
+*.mp4 binary
+*.webm binary
+*.mov binary
+*.m4v binary
 *.svg text eol=lf
