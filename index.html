@@ -6,7 +6,7 @@
 <title>إنجاز | أنظمة أعمال وأتمتة للشركات في مصر</title>
 <meta name="description" content="إنجاز تبني وتشغّل نظامًا واحدًا يدير شركتك: حجز المواعيد، متابعة العملاء، الفواتير، التقارير اللحظية، والأتمتة — مع استضافة ودعم مستمر. شبين الكوم، المنوفية.">
 <meta name="author" content="Engaz Business Solutions">
-<meta name="theme-color" content="#11243e">
+<meta name="theme-color" content="#122247">
 <meta name="color-scheme" content="light">
 <meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://engaz.premiumpower-eg.com/">
@@ -38,8 +38,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='9' fill='%2311243e'/%3E%3Crect x='9' y='9' width='46' height='46' rx='11' ry='11' fill='%23ff7052' transform='rotate(-4 32 32)'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%2311243e'%3EE%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="social-preview.png">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="brand/engaz-icon-192.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon-180.png">
 <script>document.documentElement.className+=" js";</script>
 
 <script type="application/ld+json">
@@ -305,7 +306,6 @@ section { scroll-margin-top: 88px; position: relative; }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
   border: 0;
   padding: 0;
   background: transparent;
@@ -313,27 +313,16 @@ section { scroll-margin-top: 88px; position: relative; }
   text-align: start;
 }
 
-.brand__mark {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 12px 12px 4px 12px;
-  background: var(--coral);
-  color: var(--navy);
-  font-family: Georgia, serif;
-  font-size: 27px;
-  font-weight: 900;
-  line-height: 1;
-  transform: rotate(-3deg);
+/* Official Engaz lockup. Brand rules: never recolour, rotate, stretch, or
+   re-set the name in another typeface; keep clear space equal to the badge
+   height; never render it narrower than 140px on screen. */
+.brand__logo {
+  display: block;
+  width: auto;
+  height: 46px;
+  min-width: 140px;
 }
-
-.brand__text { display: flex; flex-direction: column; line-height: 1.05; }
-.brand__text strong { font-family: var(--font-display); font-size: 19px; letter-spacing: -0.5px; }
-.brand__text small { margin-top: 4px; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .3px; }
-.brand--inverse .brand__text strong { color: var(--white); }
-.brand--inverse .brand__text small { color: #aeb9c5; }
+.brand--inverse .brand__logo { height: 44px; }
 
 /* ------------------------------------------------------------- buttons --- */
 .button {
@@ -1585,11 +1574,9 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
 <header class="site-header" id="siteHeader">
   <div class="site-header__inner">
     <a class="brand" href="#top" aria-label="Engaz — الصفحة الرئيسية">
-      <span class="brand__mark" aria-hidden="true">E</span>
-      <span class="brand__text">
-        <strong>ENGAZ</strong>
-        <small data-ar="حلول أعمال — المنوفية" data-en="Business Solutions — Menoufia">حلول أعمال — المنوفية</small>
-      </span>
+      <img class="brand__logo" src="brand/engaz-logo-horizontal.svg"
+           width="1500" height="380" decoding="async"
+           alt="Engaz | إنجاز — حلول أعمال">
     </a>
 
     <nav id="navLinks" aria-label="التنقّل الرئيسي">
@@ -2575,12 +2562,10 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
 <!-- ======================================================= FOOTER ==== -->
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <a class="brand brand--inverse" href="#top">
-      <span class="brand__mark" aria-hidden="true">E</span>
-      <span class="brand__text">
-        <strong>ENGAZ</strong>
-        <small data-ar="حلول أعمال — المنوفية" data-en="Business Solutions — Menoufia">حلول أعمال — المنوفية</small>
-      </span>
+    <a class="brand brand--inverse" href="#top" aria-label="Engaz — الصفحة الرئيسية">
+      <img class="brand__logo" src="brand/engaz-logo-horizontal-dark.svg"
+           width="1500" height="380" decoding="async"
+           alt="Engaz | إنجاز — حلول أعمال">
     </a>
 
     <nav aria-label="روابط التذييل">

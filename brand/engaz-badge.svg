@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Engaz badge">
+  <rect width="512" height="512" rx="112" fill="#122247"/>
+  <g transform="translate(4 4) scale(4.2)">
+    <g transform="translate(-3 3)">
+      <path d="M30 58 L54 84" stroke="#E8A020" stroke-width="18" stroke-linecap="round" fill="none"/>
+      <path d="M54 84 L96 30" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" fill="none"/>
+    </g>
+  </g>
+</svg>

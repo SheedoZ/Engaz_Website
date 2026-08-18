@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Engaz favicon">
+  <rect width="512" height="512" rx="96" fill="#122247"/>
+  <g transform="translate(-38 -38) scale(4.9)">
+    <g transform="translate(-3 3)">
+      <path d="M30 58 L54 84" stroke="#E8A020" stroke-width="19" stroke-linecap="round" fill="none"/>
+      <path d="M54 84 L96 30" stroke="#FFFFFF" stroke-width="19" stroke-linecap="round" fill="none"/>
+    </g>
+  </g>
+</svg>

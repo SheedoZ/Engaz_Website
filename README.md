@@ -23,7 +23,32 @@ maintained separately and are intentionally excluded from production here.
 | `sitemap.xml` | Single-page sitemap with `ar` / `en` alternates. |
 | `site.webmanifest` | Install metadata, theme colours. |
 | `social-preview.png` | Open Graph and Twitter card image. |
+| `brand/` | Official Engaz brand assets (see below). |
 | `CNAME` | Custom domain for GitHub Pages. |
+
+## Brand assets
+
+`brand/` holds the official Engaz identity, copied verbatim from the company
+brand kit (`03-brand/brand-kit` on the shared Drive). The SVGs are
+byte-for-byte the approved files; the PNG icons are rendered from
+`favicon.svg`.
+
+| File | Use |
+| --- | --- |
+| `engaz-logo-horizontal.svg` | Full lockup, navy wordmark — light backgrounds (site header). |
+| `engaz-logo-horizontal-dark.svg` | Full lockup, white wordmark and bare check — dark backgrounds (site footer). |
+| `engaz-badge.svg` | Navy badge with the check, on its own. |
+| `engaz-mark-check.svg` | The check with no badge, for dark grounds. |
+| `favicon.svg` | Browser tab icon. |
+| `apple-touch-icon-180.png`, `engaz-icon-192.png`, `engaz-icon-512.png` | Home-screen and manifest icons. |
+
+Brand colours: Primary Navy `#122247` · Accent Gold `#E8A020` ·
+Deep Navy `#0C1637` · Slate `#5A6785` · White `#FFFFFF`.
+
+The logo must not be recoloured, rotated, stretched, or have its name reset in
+another typeface, and it must never render narrower than 140px. Keep clear
+space around it equal to the badge height. Use the badge on light backgrounds
+and the bare check on dark ones.
 
 The page is Arabic-first (`dir="rtl"`) with a full English translation held in
 `data-ar` / `data-en` attribute pairs and switched client-side. English is also
