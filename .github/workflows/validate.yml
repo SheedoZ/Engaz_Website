@@ -45,13 +45,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -Eqi "href=['\"]demos?/|src=['\"]demos?/|appgprj_|-----BEGIN ([A-Z0-9 ]+ )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}" index.html; then
+          pages="$(git ls-files '*.html')"
+
+          if grep -Eqi "href=['\"]demos?/|src=['\"]demos?/|appgprj_|-----BEGIN ([A-Z0-9 ]+ )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}" $pages; then
             echo "A demo link, hosting identifier, or possible secret was detected."
             exit 1
           fi
 
           bad_refs="$(
-            grep -Eo "(href|src)=['\"][^'\"]+['\"]" index.html |
+            grep -Eoh "(href|src)=['\"][^'\"]+['\"]" $pages |
             sed -E "s/^(href|src)=['\"]//; s/['\"]$//" |
             grep -Ev '^(#|https?://|tel:|mailto:|data:|javascript:)' |
             while read -r path; do

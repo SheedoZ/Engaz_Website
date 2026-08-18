@@ -799,7 +799,7 @@ html[dir="ltr"] .marquee > div { animation-name: slideLtr; }
   position: absolute;
   top: 24px;
   inset-inline-end: 28px;
-  color: #9a9a91;
+  color: var(--muted);   /* was #9a9a91 — 2.8:1 on paper, failed AA at 11px */
   font-size: 11px;
   font-weight: 900;
 }
@@ -1029,7 +1029,7 @@ html[dir="ltr"] .marquee > div { animation-name: slideLtr; }
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 14px 0 16px;
+  margin: 14px 0 14px;
   padding: 0;
   list-style: none;
 }
@@ -1041,6 +1041,21 @@ html[dir="ltr"] .marquee > div { animation-name: slideLtr; }
   font-size: 10px;
   font-weight: 800;
 }
+/* Secondary action above the quote button — sends the visitor to the matching
+   filter on work.html. Kept as a real link (not a nested button) because
+   .product__foot is itself a button and cannot contain interactive children. */
+.product__watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
+  color: var(--navy);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.product__watch svg { width: 16px; height: 16px; flex: none; }
+.product__watch:hover { color: var(--gold-ink); text-decoration: underline; text-underline-offset: 4px; }
+
 .product__foot {
   display: flex;
   width: 100%;
@@ -1712,7 +1727,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       <a href="#products" data-ar="المنتجات" data-en="Products">المنتجات</a>
       <a href="#tools" data-ar="أدوات ذكية" data-en="Smart tools">أدوات ذكية</a>
       <a href="#packages" data-ar="الباقات" data-en="Packages">الباقات</a>
-      <a href="#clients" data-ar="عملاؤنا" data-en="Clients">عملاؤنا</a>
+      <a href="work.html" data-ar="أعمالنا" data-en="Our work">أعمالنا</a>
       <a href="#faq" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a>
       <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
       <a class="nav-cta button button--primary js-wa" href="https://wa.me/201032521321"
@@ -1981,6 +1996,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="أصناف ومخزون" data-en="Items &amp; stock">أصناف ومخزون</li>
         <li data-ar="صلاحيات وتقارير" data-en="Roles &amp; reports">صلاحيات وتقارير</li>
       </ul>
+      <a class="product__watch" href="work.html#systems"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام الشركات والمكاتب." data-wa-en="I would like details about the companies and offices system.">
         <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2002,6 +2018,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="حضور وغياب" data-en="Attendance">حضور وغياب</li>
         <li data-ar="مصروفات وأقساط" data-en="Fees &amp; instalments">مصروفات وأقساط</li>
       </ul>
+      <a class="product__watch" href="work.html#teacher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل نظام المدرّسين والسناتر." data-wa-en="I would like details about the teachers and tuition centres system.">
         <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2023,6 +2040,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="تذكير واتساب" data-en="WhatsApp reminders">تذكير واتساب</li>
         <li data-ar="أكثر من طبيب" data-en="Multi-doctor">أكثر من طبيب</li>
       </ul>
+      <a class="product__watch" href="work.html#systems"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل النظام الطبي للعيادات والمستوصفات." data-wa-en="I would like details about the clinics and polyclinics system.">
         <span data-ar="ضمن باقة «النظام» · 2 إلى 4 أسابيع" data-en="In “The System” package · 2–4 weeks">ضمن باقة «النظام» · 2 إلى 4 أسابيع</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2044,6 +2062,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="الفاتورة الإلكترونية" data-en="E-invoicing (ETA)">الفاتورة الإلكترونية</li>
         <li data-ar="تطبيق موبايل" data-en="Mobile app">تطبيق موبايل</li>
       </ul>
+      <a class="product__watch" href="work.html#systems"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="لدي نشاط لا يغطّيه منتج جاهز، وأرغب في مناقشة نطاق على المقاس." data-wa-en="My business isn't covered by a ready product — I'd like to discuss a bespoke scope.">
         <span data-ar="ضمن باقة «على المقاس» · بحسب المشروع" data-en="In the “Bespoke” package · per project">ضمن باقة «على المقاس» · بحسب المشروع</span>
         <span data-ar="ابدأ نقاشًا ←" data-en="Start a conversation →">ابدأ نقاشًا ←</span>
@@ -2064,6 +2083,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="مراحل ومهامّ" data-en="Stages &amp; tasks">مراحل ومهامّ</li>
         <li data-ar="سجلّ كل عميل" data-en="Customer history">سجلّ كل عميل</li>
       </ul>
+      <a class="product__watch" href="work.html#systems"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل خدمة متابعة العملاء والمبيعات." data-wa-en="I would like details about the CRM and sales follow-up service.">
         <span data-ar="ضمن باقة «النظام» · أسبوع إلى أسبوعين" data-en="In “The System” package · 1–2 weeks">ضمن باقة «النظام» · أسبوع إلى أسبوعين</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2084,6 +2104,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="تقرير يومي" data-en="Daily report">تقرير يومي</li>
         <li data-ar="تنبيه الطلبات الجديدة" data-en="New-lead alerts">تنبيه الطلبات الجديدة</li>
       </ul>
+      <a class="product__watch" href="work.html#automation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف الأتمتة شغّالة" data-en="Watch the automation run">شوف الأتمتة شغّالة</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل خدمة أتمتة العمليات والتقارير." data-wa-en="I would like details about the process and reporting automation service.">
         <span data-ar="ضمن باقة «الأتمتة» · نحو أسبوع" data-en="In the “Automation” package · about a week">ضمن باقة «الأتمتة» · نحو أسبوع</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2104,6 +2125,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="قوالب معتمدة" data-en="Approved templates">قوالب معتمدة</li>
         <li data-ar="ربط بالنظام" data-en="Wired into your system">ربط بالنظام</li>
       </ul>
+      <a class="product__watch" href="work.html#automation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف الأتمتة شغّالة" data-en="Watch the automation run">شوف الأتمتة شغّالة</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل واتساب بيزنس API الرسمي." data-wa-en="I would like details about the official WhatsApp Business API.">
         <span data-ar="ضمن باقة «الأتمتة» · 3 إلى 7 أيام" data-en="In the “Automation” package · 3–7 days">ضمن باقة «الأتمتة» · 3 إلى 7 أيام</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2124,6 +2146,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="تصعيد للفريق" data-en="Escalation to your team">تصعيد للفريق</li>
         <li data-ar="مدرَّب على بياناتك" data-en="Trained on your content">مدرَّب على بياناتك</li>
       </ul>
+      <a class="product__watch" href="work.html#automation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف الأتمتة شغّالة" data-en="Watch the automation run">شوف الأتمتة شغّالة</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل المساعد الذكي للردّ على العملاء." data-wa-en="I would like details about the AI customer-reply assistant.">
         <span data-ar="ضمن باقة «على المقاس» · 1 إلى 3 أسابيع" data-en="In the “Custom” package · 1–3 weeks">ضمن باقة «على المقاس» · 1 إلى 3 أسابيع</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2144,6 +2167,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="متابعة المتأخّرات" data-en="Overdue tracking">متابعة المتأخّرات</li>
         <li data-ar="تذكير تلقائي" data-en="Auto reminders">تذكير تلقائي</li>
       </ul>
+      <a class="product__watch" href="work.html#systems"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل خدمة عروض الأسعار والفواتير والتحصيل." data-wa-en="I would like details about the quotes, invoices and collection service.">
         <span data-ar="ضمن باقة «الأتمتة» · 3 إلى 7 أيام" data-en="In the “Automation” package · 3–7 days">ضمن باقة «الأتمتة» · 3 إلى 7 أيام</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2164,6 +2188,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="واتساب بيزنس" data-en="WhatsApp Business">واتساب بيزنس</li>
         <li data-ar="صفحة أو منيو QR" data-en="Page or QR menu">صفحة أو منيو QR</li>
       </ul>
+      <a class="product__watch" href="work.html#marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف شغلنا" data-en="See our work">شوف شغلنا</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل خدمة الموقع والمنيو الرقمي." data-wa-en="I would like details about the website and digital menu service.">
         <span data-ar="ضمن باقة «الباب» · 1 إلى 3 أيام" data-en="In “The Door” package · 1–3 days">ضمن باقة «الباب» · 1 إلى 3 أيام</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2184,6 +2209,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
         <li data-ar="أداء الفريق" data-en="Team performance">أداء الفريق</li>
         <li data-ar="مصادر العملاء" data-en="Lead sources">مصادر العملاء</li>
       </ul>
+      <a class="product__watch" href="work.html#systems"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span data-ar="شوف النظام شغّال" data-en="Watch it running">شوف النظام شغّال</span></a>
       <button class="product__foot js-product" type="button" data-wa-ar="أرغب في تفاصيل لوحات التقارير ومؤشّرات الأداء." data-wa-en="I would like details about dashboards and performance metrics.">
         <span data-ar="ضمن باقة «النظام» · أسبوع إلى أسبوعين" data-en="In “The System” package · 1–2 weeks">ضمن باقة «النظام» · أسبوع إلى أسبوعين</span>
         <span data-ar="اطلب عرضًا ←" data-en="Request a quote →">اطلب عرضًا ←</span>
@@ -2729,6 +2755,7 @@ html[dir="ltr"] .proof-copy { padding: 74px 56px 74px 7vw; }
       <a href="#tools" data-ar="أدوات ذكية" data-en="Smart tools">أدوات ذكية</a>
       <a href="#packages" data-ar="الباقات" data-en="Packages">الباقات</a>
       <a href="#process" data-ar="كيف نعمل" data-en="How we work">كيف نعمل</a>
+      <a href="work.html" data-ar="أعمالنا" data-en="Our work">أعمالنا</a>
       <a href="#clients" data-ar="عملاؤنا" data-en="Clients">عملاؤنا</a>
       <a href="#faq" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a>
       <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
